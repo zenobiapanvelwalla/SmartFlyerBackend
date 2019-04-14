@@ -17,7 +17,7 @@ mongoose.connect('mongodb://smartflyer:smartflyer123@ds227146.mlab.com:27146/sma
 var waitTimes = require('./routes/wait-times');
 
 //routes
-app.use('/insert-wait-times',waitTimes);
+app.use('/wait-times',waitTimes);
 //tester
 app.get("/url", (req, res, next) => {
     res.json(["Tony","Lisa","Michael","Ginger","Food"]);

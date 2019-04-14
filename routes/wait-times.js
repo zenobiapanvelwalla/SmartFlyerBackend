@@ -9,9 +9,16 @@ var response = {
     message:""
 };
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    console.log("Inserting data");
-    response.message = "Data Inserted";
-    res.send(response);
+router.post('/insert', function(req, res, next) {
+    console.log("Inserting data",req.body);
+    var waitTime = new WaitTimes(req.body);
+    waitTime.save(function(err, wait_time){
+        if(err) response.message = err;
+        else {
+            response.message = "Data Inserted";
+        }
+        res.send(response);
+    });
+    
 });
 module.exports = router;
