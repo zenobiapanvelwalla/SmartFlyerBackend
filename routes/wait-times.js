@@ -8,6 +8,7 @@ var response = {
     statusCode:200,
     message:""
 };
+
 /* GET home page. */
 router.post('/insert', function(req, res, next) {
     console.log("Inserting data",req.body);
@@ -21,4 +22,5 @@ router.post('/insert', function(req, res, next) {
     });
     
 });
+
 module.exports = router;

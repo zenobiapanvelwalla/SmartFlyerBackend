@@ -15,14 +15,15 @@ mongoose.connect('mongodb://smartflyer:smartflyer123@ds227146.mlab.com:27146/sma
 
 //route handlers
 var waitTimes = require('./routes/wait-times');
+var user = require('./routes/user');
 
 //routes
 app.use('/wait-times',waitTimes);
-//tester
+app.use('/user',user);
+
 app.get("/url", (req, res, next) => {
     res.json(["Tony","Lisa","Michael","Ginger","Food"]);
 });
-
 
 //serve on port 3000
 app.listen(3000, () => {
