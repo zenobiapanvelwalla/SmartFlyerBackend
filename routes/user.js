@@ -4,8 +4,6 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var User = require('../schemas/UserSchema');
 
-
-
 router.route('/insert')
     .post(function (req, res) {
         console.log("/insert Called");

@@ -12,17 +12,21 @@ mongoose.connect('mongodb://smartflyer:smartflyer123@ds227146.mlab.com:27146/sma
     console.log("Successfully connected to MongoDB");
 });
 
-
 //route handlers
 var waitTimes = require('./routes/wait-times');
 var user = require('./routes/user');
+var airport = require('./routes/airport');
 
 //routes
 app.use('/wait-times',waitTimes);
 app.use('/user',user);
+app.use('/airport',airport);
 
-app.get("/url", (req, res, next) => {
-    res.json(["Tony","Lisa","Michael","Ginger","Food"]);
+app.get("/ping", (req, res, next) => {
+    res.status(200).send({
+        statusCode:200,
+        message:"API is up and running!"
+    });
 });
 
 //serve on port 3000
