@@ -60,6 +60,14 @@ var AirportSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    averageWaitTime:{
+        type: Number,
+        default: 0
+    },
+    avgHourlyWaitTime:{
+        type: Number,
+        default: 0
+    },
     waittimes: [
         {
             email : String,

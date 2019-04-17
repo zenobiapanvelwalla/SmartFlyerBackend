@@ -151,9 +151,26 @@ router.post('/search', function (req, res) {
         if (airports.length > 10) {
             result.data = airports.slice(0, 9)
         }
+        console.log(result)
+        for (let i = 0; i< result.data.length; i++){
+            var sum = 0, count = 0, latestThreeSum = 0;
+            for (var index = 0; index < result.data[i].waittimes.length; index ++) {
+                sum += result.data[i].waittimes[index].wait
+                count += 1
+                //let createdDate = AllAirports[i].waittimes[index].created
+                //console.log('Saved date is ' +createdDate)
+            }
+            //console.log("Adding  for " +AllAirports[i].name+  " avg is " + sum/count)
+            result.data[i].averageWaitTime = isNaN(sum/count) ? "0" : sum/count.toString()
+        }
         res.json(result)
     });
 });
+
+function findAvgWaitTime(total, num) {
+    return total + num;
+}
+
 
 router.post('/getNearest', function (req, res) {
     console.log("/search Called");
@@ -173,7 +190,17 @@ router.post('/getNearest', function (req, res) {
         let d = distance(lat1,lon1,lat2,lon2,'M');    
         //console.log("Distance for " + AllAirports[i].icao + ": " + d )
         if(d < 150){
-            console.log("Adding to Array" + AllAirports[i].icao)
+            var sum = 0, count = 0, latestThreeSum = 0;
+            let dateNow = new Date()
+            for (var index = 0; index < AllAirports[i].waittimes.length; index ++) {
+                sum += AllAirports[i].waittimes[index].wait
+                count += 1
+                //let createdDate = AllAirports[i].waittimes[index].created
+                //console.log('Saved date is ' +createdDate)
+            }
+            //console.log("Adding  for " +AllAirports[i].name+  " avg is " + sum/count)
+            AllAirports[i].averageWaitTime = isNaN(sum/count) ? "0" : sum/count.toString()
+            console.log("Adding  for " +AllAirports[i].name+  " avg is " + AllAirports[i].averageWaitTime)
             nearestAirports.push(AllAirports[i])
         }        
     }
