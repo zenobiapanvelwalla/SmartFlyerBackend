@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "617ced95-25cb-4538-80b3-bc3d32265ba8",
+		"name": "Smart Flyer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Airport Checkpoints",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://apps.tsa.dhs.gov/mytsawebservice/GetAirportCheckpoints.ashx?ap=SFO\n",
+					"protocol": "https",
+					"host": [
+						"apps",
+						"tsa",
+						"dhs",
+						"gov"
+					],
+					"path": [
+						"mytsawebservice",
+						"GetAirportCheckpoints.ashx"
+					],
+					"query": [
+						{
+							"key": "ap",
+							"value": "SFO\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User: getAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Vajid\",\n\t\"email\":\"vajid@gmail.com\",\n\t\"password\":\"123456\",\n\t\"_id\":\"5cb2e78934c0c23464a2073e\"\n}\t"
+				},
+				"url": {
+					"raw": "192.168.0.148:3000/user/getAll",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"148"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Airports",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Vajid\",\n\t\"email\":\"vajid@gmail.com\",\n\t\"password\":\"123456\",\n\t\"_id\":\"5cb2e78934c0c23464a2073e\"\n}\t"
+				},
+				"url": {
+					"raw": "192.168.0.148:3000/airport/insertAirports",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"148"
+					],
+					"port": "3000",
+					"path": [
+						"airport",
+						"insertAirports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Airport: getAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Vajid\",\n\t\"email\":\"vajid@gmail.com\",\n\t\"password\":\"123456\",\n\t\"_id\":\"5cb2e78934c0c23464a2073e\"\n}\t"
+				},
+				"url": {
+					"raw": "192.168.0.148:3000/airport/getAll",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"148"
+					],
+					"port": "3000",
+					"path": [
+						"airport",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AIrport Search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":\"Charl\"\n\t\n}\t"
+				},
+				"url": {
+					"raw": "192.168.0.148:3000/airport/search",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"148"
+					],
+					"port": "3000",
+					"path": [
+						"airport",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nearest Airport",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lat\":\"37.338207\",\n\t\"lon\":\"-121.886330\"\n\t\n}\t"
+				},
+				"url": {
+					"raw": "192.168.0.148:3000/airport/getNearest",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"148"
+					],
+					"port": "3000",
+					"path": [
+						"airport",
+						"getNearest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Wait Time",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"vajid9@gmail.com\",\n\t\"wait\":\"45\",\n\t\"id\":\"5cb4dc7df13e1e09b8d7ce20\"\n\t\n}\t"
+				},
+				"url": {
+					"raw": "192.168.0.148:3000/airport/addUserWaitTime",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"148"
+					],
+					"port": "3000",
+					"path": [
+						"airport",
+						"addUserWaitTime"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "192.168.0.148:3000/airport/saveAirportImage",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\":\"SFO\"\n\t\n}\t"
+				},
+				"url": {
+					"raw": "192.168.0.148:3000/airport/saveAirportImage",
+					"host": [
+						"192",
+						"168",
+						"0",
+						"148"
+					],
+					"port": "3000",
+					"path": [
+						"airport",
+						"saveAirportImage"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
