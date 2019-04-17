@@ -54,7 +54,7 @@ router.route('/insertAirports')
                         }
                     });
                 }
-                res.status(200).send({
+                res.status(200).json({
                     statusCode: 200,
                     message: "Airports Added!"
                 });
@@ -64,27 +64,50 @@ router.route('/insertAirports')
 router.route('/addUserWaitTime')
     .post(function (req, res) {
         console.log("/addUserWaitTime Called");
-        const doc = {
-            name: req.body.name,
+        console.log(req.body.email);
+        console.log(req.body.wait);
+        console.log(req.body.id);
+        let waitTime = {
             email: req.body.email,
-            password: req.body.password,
-        };
-        console.log(doc);
-        User.update({
-            _id: req.body._id
-        }, doc, function (err, result) {
-            if (err) {
-                console.log(err);
-                res.status(401).send(err)
-                return
+            wait: req.body.wait
+        }
+        Airport.findOneAndUpdate({
+                _id: req.body.id
+            }, {
+                $push: {
+                    waittimes: waitTime
+                }
+            },
+            function (err, data) {
+                if (err) {
+                    console.log(err);
+                    res.status(401).json(err)
+                    return
+                }
+                res.json({
+                    statusCode: 200,
+                    message: "Time added!"
+                });
             }
-            res.status(200).send('User successfully updated!');
-        });
+        );
     });
+
 
 router.get('/getAll', function (req, res) {
     console.log("/getAll Called");
     Airport.find({}, function (err, airports) {
+        if (err) {
+            console.log(err);
+            res.status(401).json(err)
+            return
+        }
+        res.json(airports);
+    });
+});
+
+router.post('/getOne', function (req, res) {
+    console.log("/getOne Called");
+    Airport.findOne({_id: req.body.id}, function (err, airports) {
         if (err) {
             console.log(err);
             res.status(401).json(err)
@@ -116,13 +139,13 @@ router.post('/search', function (req, res) {
     }, function (err, airports) {
         if (err) {
             console.log(err);
-            res.status(401).send(err)
+            res.status(401).json(err)
             return
         }
-        let result= {
-            data:airports
+        let result = {
+            data: airports
         }
-        if(airports.length > 10){
+        if (airports.length > 10) {
             result.data = airports.slice(0, 9)
         }
         res.json(result)
@@ -138,9 +161,10 @@ router.post('/getNearest', function (req, res) {
     let lon1 = parseFloat(req.body.lon)
 
     let nearestAirports = []
-    for(let i = 0; i < AllAirports.length ; i++){
+    for (let i = 0; i < AllAirports.length; i++) {
         let lat2 = parseFloat(AllAirports[i].latitude)
         let lon2 = parseFloat(AllAirports[i].longitude)
+
         let d = distance(lat1,lon1,lat2,lon2,'M');    
         //console.log("Distance for " + AllAirports[i].icao + ": " + d )
         if(d < 200){
@@ -149,10 +173,10 @@ router.post('/getNearest', function (req, res) {
         }
     }
 
-    let result= {
-        data:nearestAirports
+    let result = {
+        data: nearestAirports
     }
-    if(nearestAirports.length > 10){
+    if (nearestAirports.length > 10) {
         result.data = nearestAirports.slice(0, 9)
     }
     res.json(result)
@@ -160,25 +184,28 @@ router.post('/getNearest', function (req, res) {
 });
 
 function distance(lat1, lon1, lat2, lon2, unit) {
-	if ((lat1 == lat2) && (lon1 == lon2)) {
-		return 0;
-	}
-	else {
-		var radlat1 = Math.PI * lat1/180;
-		var radlat2 = Math.PI * lat2/180;
-		var theta = lon1-lon2;
-		var radtheta = Math.PI * theta/180;
-		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-		if (dist > 1) {
-			dist = 1;
-		}
-		dist = Math.acos(dist);
-		dist = dist * 180/Math.PI;
-		dist = dist * 60 * 1.1515;
-		if (unit=="K") { dist = dist * 1.609344 }
-		if (unit=="N") { dist = dist * 0.8684 }
-		return dist;
-	}
+    if ((lat1 == lat2) && (lon1 == lon2)) {
+        return 0;
+    } else {
+        var radlat1 = Math.PI * lat1 / 180;
+        var radlat2 = Math.PI * lat2 / 180;
+        var theta = lon1 - lon2;
+        var radtheta = Math.PI * theta / 180;
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist);
+        dist = dist * 180 / Math.PI;
+        dist = dist * 60 * 1.1515;
+        if (unit == "K") {
+            dist = dist * 1.609344
+        }
+        if (unit == "N") {
+            dist = dist * 0.8684
+        }
+        return dist;
+    }
 }
 
 module.exports = router;
