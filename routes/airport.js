@@ -142,7 +142,7 @@ router.post('/getNearest', function (req, res) {
         let lat2 = parseFloat(AllAirports[i].latitude)
         let lon2 = parseFloat(AllAirports[i].longitude)
         let d = distance(lat1,lon1,lat2,lon2,'M');    
-        console.log("Distance for " + AllAirports[i].icao + ": " + d )
+        //console.log("Distance for " + AllAirports[i].icao + ": " + d )
         if(d < 200){
             console.log("Adding to Array" + AllAirports[i].icao)
             nearestAirports.push(AllAirports[i])
