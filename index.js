@@ -16,11 +16,13 @@ mongoose.connect('mongodb://smartflyer:smartflyer123@ds227146.mlab.com:27146/sma
 var waitTimes = require('./routes/wait-times');
 var user = require('./routes/user');
 var airport = require('./routes/airport');
+var rating = require('./routes/rating');
 
 //routes
 app.use('/wait-times',waitTimes);
 app.use('/user',user);
 app.use('/airport',airport);
+app.use('/rating',rating);
 
 app.get("/ping", (req, res, next) => {
     res.status(200).send({
