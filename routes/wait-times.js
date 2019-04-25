@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 let User = require('../schemas/UserSchema');
 let WaitTimes = require('../schemas/WaitTimesSchema');
 
+
 var response = {
     statusCode:200,
     message:""
@@ -20,7 +21,6 @@ router.post('/insert', function(req, res, next) {
         }
         res.send(response);
     });
-    
 });
 
 module.exports = router;

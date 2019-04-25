@@ -11,6 +11,7 @@ router.route('/insert')
         user.name = req.body.name;
         user.email = req.body.email;
         user.password = req.body.password;
+        user.leaderboard_count = 0;
         user.save(function (err) {
             if (err){
                 console.log(err);
@@ -77,6 +78,24 @@ router.post('/login', function (req, res) {
         });
 });
 
+
+router.get('/getLeaderBoardData', function (req, res) {
+    console.log("/getAll Called for leaderboard");
+    User.find().sort({'leaderboard_count':-1}).exec(function (err, users) {
+        if (err){
+            console.log(err);
+            res.status(401).send(err)
+            return
+        }
+        //console.log(users);
+        let result = {
+            data: users
+        };
+        res.json(result);
+    });
+});
+
+
 router.get('/getAll', function (req, res) {
     console.log("/getAll Called");
     User.find({}, function (err, users) {
@@ -84,7 +103,8 @@ router.get('/getAll', function (req, res) {
             console.log(err);
             res.status(401).send(err)
             return
-        }            
+        }
+        console.log(users);
         res.json(users);
         });    
 });

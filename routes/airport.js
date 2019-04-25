@@ -4,6 +4,7 @@ var router = express.Router();
 const csv = require('csv-parser');
 const fs = require('fs');
 var Airport = require('../schemas/AirportSchema');
+var User = require('../schemas/UserSchema');
 
 let AllAirports = []
 
@@ -23,6 +24,8 @@ function loadCache()
     console.log("Airport Cache Created: " + AllAirports.length);
   });
 }
+
+
 
 router.route('/insertAirports')
   .post(function (req, res) {
@@ -90,6 +93,17 @@ router.route('/addUserWaitTime')
           console.log(err);
           res.status(401).json(err)
           return
+        }
+        else{
+            User.findOneAndUpdate({
+                email: req.body.email
+            }, {$inc: {leaderboard_count: 1}},  function(err, msg){
+                if (err) {
+                    console.log(err);
+                    res.status(401).json(err)
+                    return
+                }
+            })
         }
         loadCache()
         res.json({

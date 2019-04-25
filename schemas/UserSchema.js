@@ -9,6 +9,7 @@ var UserSchema =  new Schema({
         default: Date.now
     },
     password:{type:String, required:true},
+    leaderboard_count:{type:Number}
 });
 
 module.exports = mongoose.model('User',UserSchema);
